@@ -52,9 +52,41 @@ Beginilah cara pemain menukar hadiah:
  * 
  */
  
- function exchangeScore(players) { 
-     
- }
+function exchangeScore(players) { 
+  if(players.length === 0){
+    return [];
+  }
+  let listItem = [
+    {name: "Buzz Lightyear", harga: 2000, stock: 1},
+    {name: "Teddy Bear", harga: 1000, stock:1},
+    {name: "Ducky", harga: 500, stock: 3},
+    {name: "Bunny", harga: 300, stock: 2},
+    {name: "Toy Soldier", harga: 200, stock: 5}
+  ]
+  var hasil = [];  
+
+  for(var i = 0 ; i < players.length ; i ++){
+    var item = [];
+    var obj = {};
+    while(players[i].points >= 200 && listItem[listItem.length-1].stock > 0){
+      for(var j = 0 ; j < listItem.length ; j ++){
+        if(players[i].points >= listItem[j].harga && listItem[j].stock > 0){
+          item.push(listItem[j].name);
+          players[i].points -= listItem[j].harga;
+          listItem[j].stock --;
+        }
+      }
+    }
+    obj.name = players[i].name;
+    obj.items = item;
+    obj.points = players[i].points;
+    hasil.push(obj);
+  }
+  return hasil;
+
+
+
+}
  
  console.log(exchangeScore([
    {name: "Yanto Kopling", points:100}, {name: "Audric", points: 300}, {name: "Ayu", points: 1000}, {name: "Semmi", points:1000}, {name: "Mahdi", points: 2000}, 
